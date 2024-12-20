@@ -4,9 +4,8 @@ import torchaudio
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import torch
 
-model_name = "facebook/wav2vec2-base-960h"
-model = Wav2Vec2ForCTC.from_pretrained(model_name)
-processor = Wav2Vec2Processor.from_pretrained(model_name)
+model = Wav2Vec2ForCTC.from_pretrained("./saved_wav2vec2")
+processor = Wav2Vec2Processor.from_pretrained("./saved_wav2vec2")
 
 SAMPLE_RATE = 16000
 CHUNK_DURATION = 4

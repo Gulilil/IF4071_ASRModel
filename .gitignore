@@ -3,3 +3,6 @@ saved_models/
 env/
 fine_tuned/
 wandb/
+.env
+env
+fine_tuned_wav2vec2

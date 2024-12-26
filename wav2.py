@@ -4,8 +4,8 @@ import torchaudio
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import torch
 
-model = Wav2Vec2ForCTC.from_pretrained("./fine_tuned/wav2vec2")
-processor = Wav2Vec2Processor.from_pretrained("./fine_tuned/wav2vec2")
+model = Wav2Vec2ForCTC.from_pretrained("./saved_models/wav2vec2")
+processor = Wav2Vec2Processor.from_pretrained("./saved_models/wav2vec2")
 
 SAMPLE_RATE = 16000
 CHUNK_DURATION = 4

@@ -1,2 +1,5 @@
 data_corpus
 saved_models/
+env/
+fine_tuned/
+wandb/

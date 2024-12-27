@@ -15,7 +15,12 @@ class Wav2Vec2Trainer:
         self.output_dir = output_dir
         
         # Check if MPS is available
-        self.device = "mps" if torch.backends.mps.is_available() else "cpu"
+        if (torch.backends.mps.is_available()):
+            self.device = "mps"
+        elif (torch.cuda.is_available()):
+            self.device = "cuda"
+        else:
+            self.device = "cpu"
         print(f"Using device: {self.device}")
         
         self.model = Wav2Vec2ForCTC.from_pretrained(model_path)

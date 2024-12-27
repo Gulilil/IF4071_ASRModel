@@ -7,6 +7,11 @@ from typing import Dict, List, Union
 import torch.nn.functional as F
 from transformers import TrainingArguments, Trainer
 from jiwer import wer
+import warnings
+
+# Suppress all warnings
+warnings.filterwarnings("ignore")
+
 
 class Wav2Vec2Trainer:
     def __init__(self, model_path: str, dataset_path: str, output_dir: str):
@@ -71,10 +76,11 @@ class Wav2Vec2Trainer:
         # Load dataset
         print("Loading dataset...")
         raw_dataset = load_dataset("csv", data_files=self.dataset_path)
+
         
         # Create a validation split manually
         train_test = raw_dataset["train"].train_test_split(
-            test_size=0.5,  # Split 50-50 since we have a small dataset
+            test_size=0.2,  # Split 50-50 since we have a small dataset
             shuffle=True,
             seed=42
         )
@@ -108,9 +114,9 @@ class Wav2Vec2Trainer:
             per_device_train_batch_size=1,
             per_device_eval_batch_size=1,
             gradient_accumulation_steps=4,
-            evaluation_strategy="steps",
-            save_strategy="steps",
-            num_train_epochs=50,
+            evaluation_strategy="epoch",
+            save_strategy="epoch",
+            num_train_epochs=20,
             save_steps=10,
             eval_steps=10,
             logging_steps=5,
@@ -183,7 +189,7 @@ class DataCollatorCTCWithPadding:
 if __name__ == "__main__":
     model_path = "./saved_models/wav2vec2"
     dataset_path = "data.csv"
-    output_dir = "./fine_tuned_wav2vec2"
+    output_dir = "./fine_tuned_manual"
     
     trainer = Wav2Vec2Trainer(model_path, dataset_path, output_dir)
     trainer.fine_tune()

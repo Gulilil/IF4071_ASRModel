@@ -6,3 +6,4 @@ wandb/
 .env
 env
 fine_tuned_wav2vec2
+fine_tuned_manual

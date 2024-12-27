@@ -3,6 +3,10 @@ import numpy as np
 import torchaudio
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor, BartForConditionalGeneration, BartTokenizer
 import torch
+import warnings
+
+# Suppress all warnings
+warnings.filterwarnings("ignore")
 
 # Load pre-trained Wav2Vec2 model
 wav2vec_model = Wav2Vec2ForCTC.from_pretrained("./saved_models/wav2vec2")
@@ -17,7 +21,7 @@ SAMPLE_RATE = 16000
 CHUNK_DURATION = 5  # Duration of each audio chunk in seconds
 CHUNK_SIZE = int(SAMPLE_RATE * CHUNK_DURATION)
 
-def transcribe_audio(audio_chunk):
+def transcribe_audio(audio_chunk, sampling_rate = SAMPLE_RATE):
     """
     Transcribe audio using Wav2Vec2.
     """
@@ -25,7 +29,7 @@ def transcribe_audio(audio_chunk):
     audio_chunk = (audio_chunk / np.max(np.abs(audio_chunk))).astype(np.float32)
     
     # Prepare input for Wav2Vec2 model
-    input_values = wav2vec_processor(audio_chunk, sampling_rate=SAMPLE_RATE, return_tensors="pt").input_values
+    input_values = wav2vec_processor(audio_chunk, sampling_rate=sampling_rate, return_tensors="pt").input_values
     
     # Perform inference
     with torch.no_grad():
@@ -64,6 +68,8 @@ def callback(indata, frames, time, status):
     print("Processed Text:", processed_text)
 
 if __name__ == "__main__":
+    
+    # REAL TIME PROCESS
     print("Starting real-time transcription and processing...")
     with sd.InputStream(
         samplerate=SAMPLE_RATE, channels=1, callback=callback, blocksize=CHUNK_SIZE
@@ -71,3 +77,21 @@ if __name__ == "__main__":
         print("Listening... Press Ctrl+C to stop.")
         while True:
             pass
+
+    # # AUDIO PATH READ
+    # Path to your audio file
+    # audio_file_path = "data/test-1.wav"
+
+    # # Load audio file
+    # print(f"Loading audio file: {audio_file_path}")
+    # waveform, sr = torchaudio.load(audio_file_path)
+
+    # # Transcribe audio
+    # print("Transcribing audio...")
+    # transcription = transcribe_audio(waveform)
+    # print("Raw Transcription:", transcription)
+
+    # # Process transcription with BART
+    # print("Processing transcription with BART...")
+    # processed_text = process_text_with_bart(transcription)
+    # print("Processed Text:", processed_text)

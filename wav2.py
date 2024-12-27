@@ -3,9 +3,13 @@ import numpy as np
 import torchaudio
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import torch
+import warnings
 
-model = Wav2Vec2ForCTC.from_pretrained("./saved_models/wav2vec2")
-processor = Wav2Vec2Processor.from_pretrained("./saved_models/wav2vec2")
+# Suppress all warnings
+warnings.filterwarnings("ignore")
+
+model = Wav2Vec2ForCTC.from_pretrained("./saved_models/final_model")
+processor = Wav2Vec2Processor.from_pretrained("./saved_models/final_model")
 
 SAMPLE_RATE = 16000
 CHUNK_DURATION = 4

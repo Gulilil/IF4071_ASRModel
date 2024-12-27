@@ -104,6 +104,7 @@ class Wav2Vec2Trainer:
             per_device_eval_batch_size=1,
             gradient_accumulation_steps=4,
             evaluation_strategy="steps",
+            save_strategy="steps",
             num_train_epochs=50,
             save_steps=10,
             eval_steps=10,

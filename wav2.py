@@ -8,8 +8,8 @@ import warnings
 # Suppress all warnings
 warnings.filterwarnings("ignore")
 
-model = Wav2Vec2ForCTC.from_pretrained("./saved_models/manual_model")
-processor = Wav2Vec2Processor.from_pretrained("./saved_models/wav2vec2")
+model = Wav2Vec2ForCTC.from_pretrained("./saved_models/new_model")
+processor = Wav2Vec2Processor.from_pretrained("./saved_models/new_model")
 
 SAMPLE_RATE = 16000
 CHUNK_DURATION = 4

@@ -187,7 +187,7 @@ class DataCollatorCTCWithPadding:
 
 
 if __name__ == "__main__":
-    model_path = "./saved_models/wav2vec2"
+    model_path = "./saved_models/new_model"
     dataset_path = "data.csv"
     output_dir = "./fine_tuned_manual"
     

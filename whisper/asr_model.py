@@ -1,4 +1,3 @@
-import torch
 from transformers import pipeline
 
 import pyaudio
@@ -20,11 +19,12 @@ SILENCE_TIMER = 3
 silence_threshold = 1000
 audio = pyaudio.PyAudio()
 all_transcriptions = []
-whisper = pipeline("automatic-speech-recognition", "openai/whisper-medium", torch_dtype=torch.float16, device="cuda:0")
+whisper = pipeline(model="NY7y32/whisper-tiny-id")
 # start Recording
 stream = audio.open(format=FORMAT, channels=CHANNELS,
                 rate=RATE, input=True,
                 frames_per_buffer=CHUNK)
+
 while True : 
     # print ("recording...")
     # frames = []

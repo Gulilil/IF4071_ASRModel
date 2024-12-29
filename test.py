@@ -11,6 +11,7 @@ from transformers import (
 import pandas as pd
 from thefuzz import fuzz
 from thefuzz import process
+import sys
 
 model = Wav2Vec2ForCTC.from_pretrained("./saved_models/finetune-v2")
 SAMPLE_RATE = 16000
@@ -121,43 +122,96 @@ def transcribe_wav_file(file_path):
     return transcription
 
 if __name__ == "__main__":
-    df = pd.read_csv("data.csv")
+    
+    # HOW TO RUN:
+    # Closed Experimental Condition
+    # ```cmd
+    # python test.py closed
+    # ```
+    #
+    # Open Experimental Condition
+    # ```cmd
+    # python test.py open
+    # ```
 
-    result_data = []
-    total_insertions = 0
-    total_deletions = 0
-    total_substitutions = 0
-    total_error_rate = 0
-    total_similarity_score = 0
-    total_data = len(df)
-    for idx, row in df.iterrows():
-        file_path = row['audio']
-        actual_text = row['text']
+    if (sys.argv[1] == "closed"):
+      # Closed Experimental Condition
+      df = pd.read_csv("data.csv")
+      result_data = []
+      total_insertions = 0
+      total_deletions = 0
+      total_substitutions = 0
+      total_error_rate = 0
+      total_similarity_score = 0
+      total_data = len(df)
+      for idx, row in df.iterrows():
+          file_path = row['audio']
+          actual_text = row['text']
 
-        # print("Transcribing the .wav file...")
-        result = transcribe_wav_file(file_path)
-        print(f"[PROCESSING] {file_path}")
-        print("Transcription:", result)
-        print("Actual Text:", actual_text.upper())
-        # print(processor.tokenizer.get_vocab())
-        analyze_result = analyze(actual_text.upper(), result)
-        result_data.append(analyze_result)
+          # print("Transcribing the .wav file...")
+          result = transcribe_wav_file(file_path)
+          print(f"[PROCESSING] {file_path}")
+          print("Transcription:", result)
+          print("Actual Text:", actual_text.upper())
+          # print(processor.tokenizer.get_vocab())
+          analyze_result = analyze(actual_text.upper(), result)
+          result_data.append(analyze_result)
 
-        total_insertions += analyze_result['insertions']
-        total_deletions += analyze_result['deletions']
-        total_substitutions += analyze_result['substitutions']
-        total_error_rate += analyze_result['error_rate']
-        total_similarity_score += analyze_result['similarity_score']
+          total_insertions += analyze_result['insertions']
+          total_deletions += analyze_result['deletions']
+          total_substitutions += analyze_result['substitutions']
+          total_error_rate += analyze_result['error_rate']
+          total_similarity_score += analyze_result['similarity_score']
 
-    print("[OVERALL SCORE]")
-    print(f"Average insertions: {total_insertions/total_data}")
-    print(f"Average substitutions: {total_substitutions/total_data}")
-    print(f"Average deletions: {total_deletions/total_data}")
-    print(f"Average error rate: {total_error_rate/total_data}")
-    print(f"Average similarity score: {total_similarity_score/total_data}")
+      print("[OVERALL SCORE]")
+      print(f"Average insertions: {total_insertions/total_data}")
+      print(f"Average substitutions: {total_substitutions/total_data}")
+      print(f"Average deletions: {total_deletions/total_data}")
+      print(f"Average error rate: {total_error_rate/total_data}")
+      print(f"Average similarity score: {total_similarity_score/total_data}")
 
-    result_df = pd.DataFrame(result_data)
-    result_df.to_csv("result_data.csv", index=False)
-    result_df.to_excel("result_data.xlsx", sheet_name="Result", index=False)
+      result_df = pd.DataFrame(result_data)
+      result_df.to_csv("./result/result_data_test_closed.csv", index=False)
+      result_df.to_excel("./result/result_data_test_closed.xlsx", sheet_name="Result", index=False)
+
+    elif (sys.argv[1] == "open"):
+      # Open Experimental Condition
+      df = pd.read_csv("test.csv")
+      result_data = []
+      total_insertions = 0
+      total_deletions = 0
+      total_substitutions = 0
+      total_error_rate = 0
+      total_similarity_score = 0
+      total_data = len(df)
+      for idx, row in df.iterrows():
+          file_path = row['audio']
+          actual_text = row['text']
+
+          # print("Transcribing the .wav file...")
+          result = transcribe_wav_file(file_path)
+          print(f"[PROCESSING] {file_path}")
+          print("Transcription:", result)
+          print("Actual Text:", actual_text.upper())
+          # print(processor.tokenizer.get_vocab())
+          analyze_result = analyze(actual_text.upper(), result)
+          result_data.append(analyze_result)
+
+          total_insertions += analyze_result['insertions']
+          total_deletions += analyze_result['deletions']
+          total_substitutions += analyze_result['substitutions']
+          total_error_rate += analyze_result['error_rate']
+          total_similarity_score += analyze_result['similarity_score']
+
+      print("[OVERALL SCORE]")
+      print(f"Average insertions: {total_insertions/total_data}")
+      print(f"Average substitutions: {total_substitutions/total_data}")
+      print(f"Average deletions: {total_deletions/total_data}")
+      print(f"Average error rate: {total_error_rate/total_data}")
+      print(f"Average similarity score: {total_similarity_score/total_data}")
+
+      result_df = pd.DataFrame(result_data)
+      result_df.to_csv("./result/result_data_test_open.csv", index=False)
+      result_df.to_excel("./result/result_data_test_open.xlsx", sheet_name="Result", index=False)
         
 

@@ -223,27 +223,31 @@ if __name__ == "__main__":
         total_similarity_score = 0
         total_data = len(df)
         for idx, row in df.iterrows():
-          file_path = row['audio']
+          file_path_noise = row['audio']
+          file_path_silent = row['silence']
           actual_text = row['text']
 
           # print("Transcribing the .wav file...")
-          result = transcribe_wav_file(file_path)
-          print(f"[PROCESSING] {file_path}")
+          result = transcribe_wav_file(file_path_noise)
+          result_silent = transcribe_wav_file(file_path_silent)
           print("Transcription:", result)
           print("Actual Text:", actual_text.upper())
           # print(processor.tokenizper.get_vocab())
-          analyze_result = analyze(actual_text.upper(), result)
-          result_data.append(analyze_result)
+          analyze_result_noise = analyze(actual_text.upper(), result)
+          analyze_result_silent = analyze(actual_text.upper(), result_silent)
+          print("=====================================")
+          print("INSERTIONS", analyze_result_noise["insertions"])
+          print("SUBSTITUTIONS: ", analyze_result_noise["substitutions"])
+          print("DELETIONS: ", analyze_result_noise["deletions"])
+          print("ERROR RATE:", analyze_result_noise["error_rate"])
+          print("SIMILARITY SCORE:", analyze_result_noise["similarity_score"])
+          print("=====================================")
 
-          total_insertions += analyze_result['insertions']
-          total_deletions += analyze_result['deletions']
-          total_substitutions += analyze_result['substitutions']
-          total_error_rate += analyze_result['error_rate']
-          total_similarity_score += analyze_result['similarity_score']
-
-        print("[OVERALL SCORE]")
-        print(f"Average insertions: {total_insertions/total_data}")
-        print(f"Average substitutions: {total_substitutions/total_data}")
-        print(f"Average deletions: {total_deletions/total_data}")
-        print(f"Average error rate: {total_error_rate/total_data}")
-        print(f"Average similarity score: {total_similarity_score/total_data}")
+          print("=====================================")
+          print("INSERTIONS", analyze_result_silent["insertions"])
+          print("SUBSTITUTIONS: ", analyze_result_silent["substitutions"])
+          print("DELETIONS: ", analyze_result_silent["deletions"])
+          print("ERROR RATE:", analyze_result_silent["error_rate"])
+          print("SIMILARITY SCORE:", analyze_result_silent["similarity_score"])
+          print("=====================================")
+          

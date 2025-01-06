@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
     if (sys.argv[1] == "closed"):
       # Closed Experimental Condition
-      df = pd.read_csv("data.csv")
+      df = pd.read_csv("data_train.csv")
       result_data = []
       total_insertions = 0
       total_deletions = 0
@@ -176,7 +176,7 @@ if __name__ == "__main__":
 
     elif (sys.argv[1] == "open"):
       # Open Experimental Condition
-      df = pd.read_csv("test.csv")
+      df = pd.read_csv("data_test.csv")
       result_data = []
       total_insertions = 0
       total_deletions = 0

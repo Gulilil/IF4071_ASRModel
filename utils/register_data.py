@@ -117,4 +117,4 @@ if __name__ == "__main__":
       count += 1
 
   df = pd.DataFrame(data)
-  df.to_csv("data_auto.csv", index=False)
+  df.to_csv("data_train.csv", index=False)

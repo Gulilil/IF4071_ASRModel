@@ -8,6 +8,7 @@ import warnings
 # Suppress all warnings
 warnings.filterwarnings("ignore")
 
+# Adjust used model here
 model = Wav2Vec2ForCTC.from_pretrained("./saved_models/finetune-v2")
 processor = Wav2Vec2Processor.from_pretrained("./saved_models/finetune-v2")
 

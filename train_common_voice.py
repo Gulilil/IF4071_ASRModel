@@ -9,9 +9,8 @@ from transformers import TrainingArguments, Trainer
 from jiwer import wer
 
 class Wav2Vec2Trainer:
-    def __init__(self, model_path: str, dataset_path: str, output_dir: str):
+    def __init__(self, model_path: str, output_dir: str):
         self.model_path = model_path
-        self.dataset_path = dataset_path
         self.output_dir = output_dir
         
         # Check if MPS is available
@@ -172,8 +171,7 @@ class DataCollatorCTCWithPadding:
 
 if __name__ == "__main__":
     model_path = "./saved_models/wav2vec2"
-    dataset_path = "data.csv"
     output_dir = "./fine_tuned_comvoi"
     
-    trainer = Wav2Vec2Trainer(model_path, dataset_path, output_dir)
+    trainer = Wav2Vec2Trainer(model_path, output_dir)
     trainer.fine_tune()

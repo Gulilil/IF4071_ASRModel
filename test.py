@@ -13,9 +13,9 @@ from thefuzz import fuzz
 from thefuzz import process
 import sys
 
-model = Wav2Vec2ForCTC.from_pretrained("./saved_models/wav2vec2")
+model = Wav2Vec2ForCTC.from_pretrained("./saved_models/finetune-v2")
 SAMPLE_RATE = 16000
-processor = Wav2Vec2Processor.from_pretrained("./saved_models/wav2vec2")
+processor = Wav2Vec2Processor.from_pretrained("./saved_models/finetune-v2")
 
 
 def calculate_edit_operations(str1, str2):

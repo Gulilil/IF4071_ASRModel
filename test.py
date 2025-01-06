@@ -13,9 +13,9 @@ from thefuzz import fuzz
 from thefuzz import process
 import sys
 
-model = Wav2Vec2ForCTC.from_pretrained("./saved_models/finetune-v2")
+model = Wav2Vec2ForCTC.from_pretrained("./saved_models/wav2vec2")
 SAMPLE_RATE = 16000
-processor = Wav2Vec2Processor.from_pretrained("./saved_models/finetune-v2")
+processor = Wav2Vec2Processor.from_pretrained("./saved_models/wav2vec2")
 
 
 def calculate_edit_operations(str1, str2):
@@ -170,9 +170,9 @@ if __name__ == "__main__":
       print(f"Average error rate: {total_error_rate/total_data}")
       print(f"Average similarity score: {total_similarity_score/total_data}")
 
-      result_df = pd.DataFrame(result_data)
-      result_df.to_csv("./result/result_data_test_closed.csv", index=False)
-      result_df.to_excel("./result/result_data_test_closed.xlsx", sheet_name="Result", index=False)
+      # result_df = pd.DataFrame(result_data)
+      # result_df.to_csv("./result/result_data_test_closed.csv", index=False)
+      # result_df.to_excel("./result/result_data_test_closed.xlsx", sheet_name="Result", index=False)
 
     elif (sys.argv[1] == "open"):
       # Open Experimental Condition

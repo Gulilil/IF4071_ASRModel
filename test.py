@@ -216,6 +216,11 @@ if __name__ == "__main__":
     elif (sys.argv[1] == "noise"):
         df = pd.read_csv("data_noise.csv")
         result_data = []
+        total_insertions_noise = 0
+        total_deletions_noise = 0
+        total_substitutions_noise = 0
+        total_error_rate_noise = 0
+        total_similarity_score_noise = 0
         total_insertions = 0
         total_deletions = 0
         total_substitutions = 0
@@ -235,19 +240,44 @@ if __name__ == "__main__":
           # print(processor.tokenizper.get_vocab())
           analyze_result_noise = analyze(actual_text.upper(), result)
           analyze_result_silent = analyze(actual_text.upper(), result_silent)
-          print("=====================================")
-          print("INSERTIONS", analyze_result_noise["insertions"])
-          print("SUBSTITUTIONS: ", analyze_result_noise["substitutions"])
-          print("DELETIONS: ", analyze_result_noise["deletions"])
-          print("ERROR RATE:", analyze_result_noise["error_rate"])
-          print("SIMILARITY SCORE:", analyze_result_noise["similarity_score"])
-          print("=====================================")
+          total_insertions += analyze_result_silent['insertions']
+          total_deletions += analyze_result_silent['deletions']
+          total_substitutions += analyze_result_silent['substitutions']
+          total_error_rate += analyze_result_silent['error_rate']
+          total_similarity_score += analyze_result_silent['similarity_score']
+          
+          total_insertions_noise += analyze_result_noise['insertions']
+          total_deletions_noise += analyze_result_noise['deletions']
+          total_substitutions_noise += analyze_result_noise['substitutions']
+          total_error_rate_noise += analyze_result_noise['error_rate']
+          total_similarity_score_noise += analyze_result_noise['similarity_score']
 
-          print("=====================================")
-          print("INSERTIONS", analyze_result_silent["insertions"])
-          print("SUBSTITUTIONS: ", analyze_result_silent["substitutions"])
-          print("DELETIONS: ", analyze_result_silent["deletions"])
-          print("ERROR RATE:", analyze_result_silent["error_rate"])
-          print("SIMILARITY SCORE:", analyze_result_silent["similarity_score"])
-          print("=====================================")
+        print("[OVERALL SCORE SILENT]")
+        print(f"Average insertions: {total_insertions/total_data}")
+        print(f"Average substitutions: {total_substitutions/total_data}")
+        print(f"Average deletions: {total_deletions/total_data}")
+        print(f"Average error rate: {total_error_rate/total_data}")
+        print(f"Average similarity score: {total_similarity_score/total_data}")
+
+        print("[OVERALL SCORE NOISE]")
+        print(f"Average insertions: {total_insertions_noise/total_data}")
+        print(f"Average substitutions: {total_substitutions_noise/total_data}")
+        print(f"Average deletions: {total_deletions_noise/total_data}")
+        print(f"Average error rate: {total_error_rate_noise/total_data}")
+        print(f"Average similarity score: {total_similarity_score_noise/total_data}")
+        #   print("=====================================")
+        #   print("INSERTIONS", analyze_result_noise["insertions"])
+        #   print("SUBSTITUTIONS: ", analyze_result_noise["substitutions"])
+        #   print("DELETIONS: ", analyze_result_noise["deletions"])
+        #   print("ERROR RATE:", analyze_result_noise["error_rate"])
+        #   print("SIMILARITY SCORE:", analyze_result_noise["similarity_score"])
+        #   print("=====================================")
+
+        #   print("=====================================")
+        #   print("INSERTIONS", analyze_result_silent["insertions"])
+        #   print("SUBSTITUTIONS: ", analyze_result_silent["substitutions"])
+        #   print("DELETIONS: ", analyze_result_silent["deletions"])
+        #   print("ERROR RATE:", analyze_result_silent["error_rate"])
+        #   print("SIMILARITY SCORE:", analyze_result_silent["similarity_score"])
+        #   print("=====================================")
           

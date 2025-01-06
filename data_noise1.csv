@@ -1,0 +1,10 @@
+audio,silence,text
+data/noise1/Recording (51).wav,data/custom/Recording (1).wav,"Call an ambulance now"
+data/noise1/Recording (52).wav,data/custom/Recording (2).wav,"There's a fire in the building"
+data/noise1/Recording (53).wav,data/custom/Recording (3).wav,"Someone is hurt we need help"
+data/noise1/Recording (54).wav,data/custom/Recording (20).wav,"Someone fainted on the street"
+data/noise1/Recording (55).wav,data/test-wav/Recording (1).wav,"We need to call 911 right now"
+data/noise1/Recording (56).wav,data/test-wav/Recording (3).wav,"Someone needs to get an ambulance"
+data/noise1/Recording (57).wav,data/test-wav/Recording (4).wav,"We need urgent medical assistance"
+data/noise1/Recording (58).wav,data/test-wav/Recording (5).wav,"I think we need to call the fire department"
+data/noise1/Recording (59).wav,data/test-wav/Recording (8).wav,"Call 911, we're in trouble."

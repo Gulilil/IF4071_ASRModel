@@ -70,8 +70,8 @@ class Wav2Vec2Trainer:
     def fine_tune(self):
         # Load dataset
         print("Loading dataset...")
-        train_dataset = load_dataset("DTU54DL/common-native", split="train[:10%]")
-        validation_dataset = load_dataset("DTU54DL/common-native", split="test[:10%]")
+        train_dataset = load_dataset("DTU54DL/common-native", split="train")
+        validation_dataset = load_dataset("DTU54DL/common-native", split="test")
 
         
         print("Processing audio files...")
